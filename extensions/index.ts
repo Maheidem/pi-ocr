@@ -18,6 +18,7 @@ import { Type } from "typebox";
 import { ACTION_INVENTORY, OcrController, ocrVersion, type SettingKey } from "./application.ts";
 import { CONFIG_PATH, loadConfig, normalizeBaseUrl, type OcrConfig } from "./config.ts";
 import { resolveEngine, type SessionModelInfo } from "./engine.ts";
+import { COMMAND_NAME } from "./metadata.ts";
 import { expandInputs, extractOcrPaths, expandPath, isOcrPath } from "./paths.ts";
 import { formatFileResult, ocrFile, type FileResult, type PipelineHost } from "./pipeline.ts";
 import { buildOcrPanelSnapshot } from "./ui/ocr-panel.ts";
@@ -259,7 +260,7 @@ export default function extension(pi: ExtensionAPI) {
 		return matches.length ? matches.map((value) => ({ value, label: value })) : null;
 	}
 
-	pi.registerCommand("ocr", {
+	pi.registerCommand(COMMAND_NAME, {
 		description: "Open the OCR control panel; /ocr now <paths…> runs OCR; /ocr status for config",
 		getArgumentCompletions: argumentCompletions,
 		handler: async (args, ctx) => {
