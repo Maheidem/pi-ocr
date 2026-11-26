@@ -31,14 +31,14 @@ test("config: defaults written on boot, discoverable (R4)", () => {
 
 test("config: normalization coerces and clamps", () => {
 	const cfg = normalizeConfig({
-		baseUrl: "192.168.31.152:8123",
+		baseUrl: "10.0.0.2:8123",
 		model: "  ",
 		autoDetect: "yes",
 		dpi: 9999,
 		maxPages: "abc",
 		validators: { cpf: "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", cnj: { pattern: "\\d{7}-\\d{2}", min: 2 } },
 	});
-	assert.equal(cfg.baseUrl, "http://192.168.31.152:8123/v1");
+	assert.equal(cfg.baseUrl, "http://10.0.0.2:8123/v1");
 	assert.equal(cfg.model, null);
 	assert.equal(cfg.autoDetect, true);
 	assert.equal(cfg.dpi, DEFAULT_CONFIG.dpi); // clamped back to default
