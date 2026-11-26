@@ -23,6 +23,9 @@
     "test": "tsx --test tests/*.test.ts",
     "prepack": "npm run typecheck && npm test"
   },
+  "dependencies": {
+    "@maheidem/pi-panel-kit": "^0.1.0"
+  },
   "peerDependencies": {
     "@earendil-works/pi-coding-agent": "*",
     "@earendil-works/pi-tui": "*",

@@ -9,7 +9,7 @@
 
 import { getAgentDir } from "@earendil-works/pi-coding-agent";
 import { join } from "node:path";
-import { JsonStore } from "./lib/json-store.ts";
+import { JsonStore } from "@maheidem/pi-panel-kit";
 
 export const CONFIG_SCHEMA = "ocr/v1" as const;
 export const CONFIG_PATH = join(getAgentDir(), "ocr", "config.json");

@@ -6,7 +6,7 @@ import {
   SettingsPanel,
   type PanelResult,
   type PanelSnapshot,
-} from "../extensions/ui/settings-panel.ts";
+} from "@maheidem/pi-panel-kit";
 
 const theme = {
   fg: (_color: string, text: string) => text,

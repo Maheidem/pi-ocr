@@ -6,7 +6,7 @@
 import { CONFIG_PATH } from "../config.ts";
 import { ACTION_INVENTORY, OcrController } from "../application.ts";
 import { EXTENSION_TITLE } from "../metadata.ts";
-import type { PanelSnapshot } from "./settings-panel.ts";
+import type { PanelSnapshot } from "@maheidem/pi-panel-kit";
 
 function boolRow(controller: OcrController, key: "autoDetect" | "force" | "keepRenders", label: string) {
 	const value = controller.config()[key];

@@ -15,7 +15,7 @@ import {
 import { COMMAND_NAME, EXTENSION_TITLE } from "./metadata.ts";
 import { readFile } from "node:fs/promises";
 import { homedir } from "node:os";
-import { extensionVersion } from "./ui/version.ts";
+import { extensionVersion } from "@maheidem/pi-panel-kit";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 

@@ -8,8 +8,8 @@
  * Domain logic lives in pipeline.ts / engine.ts / pdftools.ts (pi-free,
  * unit-tested); this adapter only binds them to pi surfaces.
  *
- * Architecture: pi-extension-builder scaffold (vendored SettingsPanel +
- * lib/json-store); UX archetype: control panel.
+ * Architecture: pi-extension-builder scaffold. SettingsPanel and JsonStore
+ * come from @maheidem/pi-panel-kit. UX archetype: control panel.
  */
 
 import type { ExtensionAPI, ExtensionCommandContext, ExtensionContext } from "@earendil-works/pi-coding-agent";
@@ -21,7 +21,7 @@ import { resolveEngine, type SessionModelInfo } from "./engine.ts";
 import { expandInputs, extractOcrPaths, expandPath, isOcrPath } from "./paths.ts";
 import { formatFileResult, ocrFile, type FileResult, type PipelineHost } from "./pipeline.ts";
 import { buildOcrPanelSnapshot } from "./ui/ocr-panel.ts";
-import { SettingsPanel, type PanelResult } from "./ui/settings-panel.ts";
+import { SettingsPanel, type PanelResult } from "@maheidem/pi-panel-kit";
 
 const TAG = "[ocr]";
 
