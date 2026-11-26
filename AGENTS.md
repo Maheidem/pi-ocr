@@ -1,5 +1,31 @@
-# AGENTS.md
+# AGENTS.md — @maheidem/pi-ocr
 
-Moved word for word from the pi-coder-management workspace on 2026-11-26. Paths that start with `custom-extensions/<old name>/` are now relative to this repository root.
+This repo is the pi extension "OCR". Its command is `/ocr` (see `extensions/metadata.ts`). Its tool is `ocr`.
+It follows the pi extension standard of the `pi-extension-builder` skill.
 
-- `custom-extensions/ocr` is `@maheidem/pi-ocr` — OCR of PDFs (page-split via pdftoppm; native text layers extracted free via pdftotext) and images (PNG/JPG/WebP/BMP/TIFF) through a configurable OpenAI-compatible vision endpoint. Spec-first build (2026-10-01): spec + evidence at `ocr/.planning/ocr-2026-10-01/`; prior art is the certidões pipeline (qwen3.8-flash @ 200 dpi beat tesseract on CPF/process numbers) via a remote-pi mesh post-mortem from the `candidatos-eleicao-2026` session. Tool `ocr` returns RAW text + verdict metadata (ok|review|failed, [ILEGÍVEL] counting, regex validators) and writes `<name>.ocr.json` (`pi-ocr/v1`, skip-if-exists, dpi retry ladder 200→300). Engine resolution: tool arg > config model > session model (if image-capable + openai-completions API, auth via modelRegistry) > `defaultVisionModel` (qwen3.8-flash @ mac-m3 oMLX). `/ocr` panel (vendored SettingsPanel — ocr is a registered check-vendored consumer, 8 artifacts) + `/ocr now <paths>` + input hook OFF by default. Config `~/.pi/agent/ocr/config.json`. **NOT published** (`private:true` deliberate); publish is user-gated (remove private → npm publish → `pi install npm:@maheidem/pi-ocr@<exact>` → `/reload`). 44/44 tests incl. tarball-integrity; live-verified on oMLX with a spaced-filename scanned PDF.
+## What the extension does
+
+- The `ocr` tool reads PDFs and images (PNG/JPG/WebP/BMP/TIFF) through an OpenAI-compatible vision endpoint.
+- A PDF with a real text layer goes through `pdftotext`. The other PDFs are split into pages with `pdftoppm`.
+- The tool returns the RAW text and a metadata block (verdict `ok|review|failed`, `[ILEGÍVEL]` count, regex validators).
+- The tool writes `<name>.ocr.json` (schema `pi-ocr/v1`) beside each file. It skips a file that has a sidecar, unless `force` is on. The dpi retry ladder is 200 → 300.
+- Engine order: tool arg > config model > session model (image input and an OpenAI-completions API) > `defaultVisionModel`.
+- The input hook is OFF by default.
+- The config file is `getAgentDir()/ocr/config.json` (`CONFIG_PATH` in `extensions/config.ts`).
+- `eng.traineddata` (5 MB) is tracked in git. No code uses it. It is not in the npm package. Keep it.
+
+## Rules for a change
+
+- Keep `extensions/index.ts` as wiring only. Put behaviour in `extensions/application.ts` and domain modules.
+- Import UI parts from `@maheidem/pi-panel-kit`. Do not copy kit files into `extensions/ui/`.
+- Get the config path from `getAgentDir()`. Export it as `CONFIG_PATH` from `extensions/config.ts`.
+- Put all tests in `tests/`. `npm test` runs `tests/run.mjs` and never starts a live pi.
+- Keep `.planning/` out of git.
+
+## Release steps
+
+1. Run `npm run typecheck` and `npm test`.
+2. Run `npm version <minor|patch> --no-git-tag-version` and add a `## [x.y.z]` section to `CHANGELOG.md`.
+3. Commit, then tag `vX.Y.Z`.
+4. The owner pushes and runs `npm publish` with the OTP.
+5. The owner runs `pi install npm:@maheidem/pi-ocr@<x.y.z>` and checks the version of the store copy.

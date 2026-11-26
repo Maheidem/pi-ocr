@@ -1,5 +1,6 @@
 /**
- * ocr — Pi OCR extension (spec: .planning/ocr-2026-10-01.md).
+ * ocr — Pi OCR extension. The R ids in comments refer to the design spec
+ * (ocr-2026-10-01). The spec is not in this repo.
  *
  *   tool    ocr         — images and PDFs (page-split), raw text + metadata
  *   command /ocr        — control panel, /ocr now <paths…>, /ocr status
