@@ -1,0 +1,12 @@
+{
+  "schema": "pi-extension-workbench/v1",
+  "template": "control-panel",
+  "templateVersion": "0.1.0",
+  "extension": "ocr",
+  "command": "ocr",
+  "generatedAt": "2026-10-01T12:38:19.185Z",
+  "managedReferenceFiles": [
+    "extensions/ui/settings-panel.ts",
+    "extensions/lib/json-store.ts"
+  ]
+}

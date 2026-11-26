@@ -1,0 +1,5 @@
+tests/
+tsconfig.json
+node_modules/
+*.tgz
+.pi-workbench.json
